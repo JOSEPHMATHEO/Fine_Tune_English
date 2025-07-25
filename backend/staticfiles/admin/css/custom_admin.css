@@ -1,0 +1,29 @@
+:root {
+  --main-color: #213354;
+  --accent-color: #d9205f;
+}
+
+body, .module caption, .grp-module h2 {
+  font-family: 'Poppins', sans-serif !important;
+  color: var(--main-color);
+}
+
+a, .grp-button, .grp-module h2 {
+  color: var(--accent-color);
+}
+
+.module h2 {
+  background-color: #213354;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+button, input[type=submit] {
+  background-color: #d9205f !important;
+  color: white !important;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
