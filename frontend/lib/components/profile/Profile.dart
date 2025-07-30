@@ -43,12 +43,9 @@ class _ProfileState extends State<Profile> {
     try {
       final apiClient = sl<ApiClient>();
       await apiClient.logout();
-
-      // Limpiar datos de sesión
       final prefs = sl<SharedPreferences>();
       await prefs.clear();
 
-      // Navegar al login
       if (mounted) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const LoginScreen()),
@@ -57,7 +54,6 @@ class _ProfileState extends State<Profile> {
       }
     } catch (e) {
       print('Error en logout: $e');
-      // Aún así limpiar datos locales y navegar
       final prefs = sl<SharedPreferences>();
       await prefs.clear();
 
@@ -100,23 +96,21 @@ class _ProfileState extends State<Profile> {
     }
 
     if (_userData == null) {
-      return const Center(
-        child: Text('Error cargando perfil'),
-      );
+      return const Center(child: Text('Error cargando perfil'));
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
           _buildProfileHeader(context),
-          const SizedBox(height: 20),
+          const SizedBox(height: 20.0),
           _buildStatsGrid(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 20.0),
           _buildPersonalInfo(context),
-          const SizedBox(height: 20),
+          const SizedBox(height: 20.0),
           _buildAchievements(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 20.0),
           _buildActionButtons(context),
         ],
       ),
@@ -129,33 +123,32 @@ class _ProfileState extends State<Profile> {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Stack(
               children: [
                 CircleAvatar(
-                  radius: 50,
+                  radius: 50.0,
                   backgroundColor: Theme.of(context).primaryColor,
                   child: Text(
                     _getInitials(userName),
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 32,
+                      fontSize: 32.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 Positioned(
-                  bottom: 0,
-                  right: 0,
+                  bottom: 0.0,
+                  right: 0.0,
                   child: CircleAvatar(
-                    radius: 18,
+                    radius: 18.0,
                     backgroundColor: Colors.white,
                     child: IconButton(
-                      icon: const Icon(Icons.camera_alt, size: 16),
+                      icon: const Icon(Icons.camera_alt, size: 16.0),
                       onPressed: () {
-                        // Handle photo upload
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Función de cambio de foto en desarrollo'),
@@ -167,20 +160,17 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Text(
               userName,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 8.0),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(20.0),
               ),
               child: Text(
                 _getRoleDisplayName(userRole),
@@ -209,42 +199,36 @@ class _ProfileState extends State<Profile> {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1.2,
+        crossAxisSpacing: 12.0,
+        mainAxisSpacing: 12.0,
+        childAspectRatio: 1.4,
       ),
       itemCount: stats.length,
       itemBuilder: (context, index) {
         final stat = stats[index];
         return Card(
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
                   backgroundColor: (stat['color'] as Color).withOpacity(0.1),
-                  child: Icon(
-                    stat['icon'] as IconData,
-                    color: stat['color'] as Color,
-                  ),
+                  child: Icon(stat['icon'] as IconData, color: stat['color'] as Color),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 10.0),
                 Text(
                   stat['value'] as String,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.bold,
                     color: stat['color'] as Color,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 4.0),
                 Text(
                   stat['title'] as String,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 12.0, color: Colors.grey),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -264,7 +248,6 @@ class _ProfileState extends State<Profile> {
       {'label': 'Rol', 'value': _getRoleDisplayName(_userData!['rol'] ?? ''), 'icon': Icons.school},
     ];
 
-    // Agregar campos específicos del perfil
     if (_profileData != null) {
       if (_userData!['rol'] == 'estudiante') {
         infoItems.addAll([
@@ -281,7 +264,7 @@ class _ProfileState extends State<Profile> {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -290,10 +273,7 @@ class _ProfileState extends State<Profile> {
               children: [
                 const Text(
                   'Información Personal',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
                 IconButton(
                   icon: const Icon(Icons.edit),
@@ -307,45 +287,38 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ).then((_) {
-                      // Recargar datos al volver
                       _loadProfileData();
                     });
                   },
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             ...infoItems.map((item) => Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.only(bottom: 16.0),
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 20,
+                    radius: 20.0,
                     backgroundColor: Colors.grey.withOpacity(0.1),
                     child: Icon(
                       item['icon'] as IconData,
-                      size: 20,
+                      size: 20.0,
                       color: Colors.grey[600],
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 16.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           item['label'] as String,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
+                          style: const TextStyle(fontSize: 12.0, color: Colors.grey),
                         ),
                         Text(
                           item['value'] as String,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -386,20 +359,17 @@ class _ProfileState extends State<Profile> {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Logros Recientes',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             ...achievements.map((achievement) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.only(bottom: 12.0),
               child: Row(
                 children: [
                   CircleAvatar(
@@ -409,30 +379,22 @@ class _ProfileState extends State<Profile> {
                       color: achievement['color'] as Color,
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 16.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           achievement['title'] as String,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           achievement['description'] as String,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
+                          style: const TextStyle(fontSize: 12.0, color: Colors.grey),
                         ),
                         Text(
                           achievement['date'] as String,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey,
-                          ),
+                          style: const TextStyle(fontSize: 10.0, color: Colors.grey),
                         ),
                       ],
                     ),
@@ -453,11 +415,8 @@ class _ProfileState extends State<Profile> {
           width: double.infinity,
           child: ElevatedButton.icon(
             onPressed: () {
-              // Handle settings
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Función de configuración en desarrollo'),
-                ),
+                const SnackBar(content: Text('Función de configuración en desarrollo')),
               );
             },
             icon: const Icon(Icons.settings),
@@ -465,11 +424,11 @@ class _ProfileState extends State<Profile> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey[100],
               foregroundColor: Colors.black87,
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 12.0),
         SizedBox(
           width: double.infinity,
           child: ElevatedButton.icon(
@@ -481,7 +440,7 @@ class _ProfileState extends State<Profile> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red[50],
               foregroundColor: Colors.red,
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
             ),
           ),
         ),

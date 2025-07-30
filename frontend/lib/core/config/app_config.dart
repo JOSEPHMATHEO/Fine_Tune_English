@@ -1,8 +1,25 @@
-class AppConfig {
-  // URL base del backend - CAMBIA ESTO SI TU BACKEND ESTÁ EN OTRO PUERTO
-  static const String baseUrl = 'http://127.0.0.1:8000/api';
+import 'package:flutter/foundation.dart'; // Para kIsWeb
+import 'dart:io' show Platform; // Solo se usa si no es Web
 
-  // Configuración alternativa para diferentes entornos
+class AppConfig {
+  static String get baseUrl {
+    if (kIsWeb) {
+      // URL para entorno web
+      return 'http://127.0.0.1:8000/api'; // ← Cambia esto por la URL de producción web
+    } else if (Platform.isAndroid) {
+      // Dirección IP especial para emulador Android
+      return 'http://10.0.2.2:8000';
+    } else if (Platform.isIOS) {
+      return 'http://localhost:8000';
+    } else {
+      // Default para desktop o fallback
+      return 'http://localhost:8000';
+    }
+  }
+
+
+
+// Configuración alternativa para diferentes entornos
   static const String baseUrlLocalhost = 'http://localhost:8000/api';
   static const String baseUrl127 = 'http://127.0.0.1:8000/api';
 

@@ -9,6 +9,7 @@ import '../profile/Profile.dart';
 import '../admin/AdminPanel.dart';
 import '../teacher/TeacherPanel.dart';
 import 'Header.dart';
+import 'package:fine_tune_english/core/theme/app_theme.dart';
 
 class Layout extends StatefulWidget {
   const Layout({super.key});
@@ -163,12 +164,9 @@ class _LayoutState extends State<Layout> {
           });
         },
         items: navItems,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: AppTheme.institutionalWhite,
         selectedItemColor: AppTheme.institutionalBlue,
         unselectedItemColor: AppTheme.textSecondaryColor,
-        type: BottomNavigationBarType.fixed,
+        backgroundColor: AppTheme.institutionalWhite,
         elevation: 8,
       ),
     );

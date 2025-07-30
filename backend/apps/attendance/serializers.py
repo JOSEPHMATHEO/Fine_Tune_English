@@ -1,8 +1,14 @@
 from rest_framework import serializers
 from .models import Attendance, AttendanceSession, AttendanceSummary
+from apps.courses.models import CourseGroup
 
 class AttendanceSessionSerializer(serializers.ModelSerializer):
-    course_group = serializers.SerializerMethodField()
+    course_group_id = serializers.PrimaryKeyRelatedField(
+        source='course_group',
+        queryset=CourseGroup.objects.all(),
+        write_only=True
+    )
+    course_group = serializers.SerializerMethodField(read_only=True)
     schedule = serializers.SerializerMethodField()
 
     class Meta:

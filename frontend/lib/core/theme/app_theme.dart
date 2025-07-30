@@ -6,6 +6,10 @@ class AppTheme {
   static const Color secondaryColor = Color(0xFFD9205F); // Fucsia institucional
   static const Color backgroundColor = Color(0xFFFFFFFF); // Blanco
 
+  // Alias para compatibilidad
+  static const Color institutionalWhite = backgroundColor;
+  static const Color institutionalBlue = primaryColor;
+
   // Variaciones de los colores principales
   static const Color primaryLightColor = Color(0xFF2A4A6B);
   static const Color primaryDarkColor = Color(0xFF1A2A42);
@@ -44,7 +48,7 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Roboto', // Fallback font
+      fontFamily: 'Roboto',
       colorScheme: const ColorScheme.light(
         primary: primaryColor,
         secondary: secondaryColor,
@@ -58,8 +62,6 @@ class AppTheme {
         onBackground: textPrimaryColor,
         onError: Colors.white,
       ),
-
-      // AppBar Theme
       appBarTheme: const AppBarTheme(
         backgroundColor: backgroundColor,
         foregroundColor: primaryColor,
@@ -73,8 +75,6 @@ class AppTheme {
         ),
         iconTheme: IconThemeData(color: primaryColor),
       ),
-
-      // Card Theme
       cardTheme: CardThemeData(
         color: cardColor,
         elevation: 2,
@@ -84,8 +84,6 @@ class AppTheme {
         ),
         margin: const EdgeInsets.symmetric(vertical: 4),
       ),
-
-      // Elevated Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
@@ -103,8 +101,6 @@ class AppTheme {
           ),
         ),
       ),
-
-      // Outlined Button Theme
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: primaryColor,
@@ -120,8 +116,6 @@ class AppTheme {
           ),
         ),
       ),
-
-      // Text Button Theme
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: secondaryColor,
@@ -135,8 +129,6 @@ class AppTheme {
           ),
         ),
       ),
-
-      // Input Decoration Theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: backgroundColor,
@@ -168,8 +160,6 @@ class AppTheme {
           fontFamily: 'Roboto',
         ),
       ),
-
-      // Bottom Navigation Bar Theme
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: backgroundColor,
         selectedItemColor: primaryColor,
@@ -187,8 +177,6 @@ class AppTheme {
           fontFamily: 'Roboto',
         ),
       ),
-
-      // Text Theme
       textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: 32,
@@ -263,8 +251,6 @@ class AppTheme {
           fontFamily: 'Roboto',
         ),
       ),
-
-      // Chip Theme
       chipTheme: ChipThemeData(
         backgroundColor: primaryColor.withOpacity(0.1),
         selectedColor: primaryColor,
@@ -283,8 +269,6 @@ class AppTheme {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-
-      // FloatingActionButton Theme
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: secondaryColor,
         foregroundColor: Colors.white,
@@ -294,7 +278,6 @@ class AppTheme {
     );
   }
 
-  // Métodos auxiliares para gradientes y estilos personalizados
   static BoxDecoration get primaryGradientDecoration => BoxDecoration(
     gradient: primaryGradient,
     borderRadius: BorderRadius.circular(16),

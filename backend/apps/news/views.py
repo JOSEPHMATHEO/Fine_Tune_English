@@ -120,7 +120,8 @@ def create_news(request):
             author=request.user,
             publication_date=timezone.now(),
             is_published=request.data.get('is_published', 'true').lower() in ['true', '1', 'yes'],
-            is_featured=request.data.get('is_featured', 'false').lower() in ['true', '1', 'yes']
+            is_featured=request.data.get('is_featured', 'false').lower() in ['true', '1', 'yes'],
+            image=request.FILES.get('image')  # <- ESTA LÍNEA es clave para manejar multipart/form-data
         )
 
         print(f'✅ BACKEND: Noticia creada exitosamente:')

@@ -18,11 +18,11 @@ class _AdminPanelState extends State<AdminPanel> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         child: GridView.count(
           crossAxisCount: 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 16.0,
           children: [
             _buildAdminCard(
               'Crear Noticia',
@@ -91,18 +91,18 @@ class _AdminPanelState extends State<AdminPanel> {
       elevation: 4,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.0),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
                 radius: 30,
                 backgroundColor: color.withOpacity(0.1),
-                child: Icon(icon, color: color, size: 30),
+                child: Icon(icon, color: color, size: 30.0),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 16.0),
               Text(
                 title,
                 style: const TextStyle(
@@ -111,11 +111,11 @@ class _AdminPanelState extends State<AdminPanel> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 8.0),
               Text(
                 description,
                 style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.0,
                   color: Colors.grey,
                 ),
                 textAlign: TextAlign.center,

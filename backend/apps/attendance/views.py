@@ -71,15 +71,16 @@ def attendance_summary(request):
 
         # Calcular estadísticas por materia
         by_subject = {}
-        subjects = attendances.values_list('session__subject', flat=True).distinct()
+        subjects = attendances.values_list('session__course_group__course__name', flat=True).distinct()
 
-        for subject in subjects:
-            subject_attendances = attendances.filter(session__subject=subject)
+        for subject_name in subjects:
+            subject_attendances = attendances.filter(session__course_group__course__name=subject_name)
+
             subject_total = subject_attendances.count()
             subject_present = subject_attendances.filter(status='present').count()
             subject_percentage = (subject_present / subject_total * 100) if subject_total > 0 else 0
 
-            by_subject[subject] = {
+            by_subject[subject_name] = {
                 'total': subject_total,
                 'present': subject_present,
                 'percentage': round(subject_percentage, 1)

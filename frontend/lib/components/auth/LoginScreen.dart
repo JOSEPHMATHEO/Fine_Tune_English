@@ -6,6 +6,7 @@ import '../../core/config/app_config.dart';
 import '../layout/Layout.dart';
 import 'ForgotPasswordScreen.dart';
 import 'RegisterScreen.dart';
+import 'package:fine_tune_english/core/theme/app_theme.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,12 +43,10 @@ class _LoginScreenState extends State<LoginScreen> {
         _passwordController.text,
       );
 
-      // Guardar token y datos del usuario
       await prefs.setString(AppConfig.accessTokenKey, result['access_token']);
       await prefs.setString(AppConfig.refreshTokenKey, result['refresh_token']);
       await prefs.setString(AppConfig.userDataKey, result['usuario'].toString());
 
-      // Navegar al layout principal
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Layout()),
@@ -70,25 +69,16 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFEFF6FF),
-              Colors.white,
-              Color(0xFFECFDF5),
-            ],
-          ),
-        ),
         child: SafeArea(
-          child: Padding(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo y título
+                const SizedBox(height: 48),
+
+                // Logo
                 Container(
                   width: 80,
                   height: 80,
@@ -97,9 +87,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: AppTheme.institutionalBlue.withOpacity(0.3),
+                        color: AppTheme.institutionalBlue.withOpacity(0.0),
                         blurRadius: 10,
-                        offset: const Offset(0, 4),
+                        offset: const Offset(0, 0),
                       ),
                     ],
                   ),
@@ -109,15 +99,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     size: 40,
                   ),
                 ),
+
                 const SizedBox(height: 24),
+
+                // Título
                 Text(
-                  'Fine Tune English',
+                  'Fine Tuned English',
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     color: AppTheme.institutionalBlue,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Roboto',
                   ),
                 ),
+
                 const SizedBox(height: 8),
                 Text(
                   'Ingresa a tu cuenta',
@@ -125,9 +119,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: const Color(0xFF6B7280),
                   ),
                 ),
+
                 const SizedBox(height: 48),
 
-                // Formulario de login
+                // Formulario
                 Card(
                   elevation: 4,
                   shadowColor: Colors.black.withOpacity(0.1),
@@ -138,7 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          // Campo de correo
                           TextFormField(
                             controller: _correoController,
                             decoration: const InputDecoration(
@@ -158,8 +152,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(height: 16),
-
-                          // Campo de contraseña
                           TextFormField(
                             controller: _passwordController,
                             decoration: InputDecoration(
@@ -167,7 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               prefixIcon: const Icon(Icons.lock_outlined),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                                  _obscurePassword
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -186,8 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(height: 8),
-
-                          // Enlace de recuperar contraseña
                           Align(
                             alignment: Alignment.centerRight,
                             child: TextButton(
@@ -203,8 +195,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 16),
-
-                          // Botón de login
                           ElevatedButton(
                             onPressed: _isLoading ? null : _handleLogin,
                             child: _isLoading
@@ -226,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 24),
 
-                // Enlace para registrarse
+                // Registro
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -255,6 +245,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   textAlign: TextAlign.center,
                 ),
+
+                const SizedBox(height: 24),
               ],
             ),
           ),

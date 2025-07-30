@@ -4,6 +4,8 @@ import '../../core/di/injection_container.dart';
 import '../../core/config/app_config.dart';
 import '../../core/network/api_client.dart';
 import '../notifications/NotificationBell.dart';
+import 'package:fine_tune_english/core/theme/app_theme.dart';
+
 import 'dart:convert';
 
 class Header extends StatefulWidget implements PreferredSizeWidget {
@@ -39,7 +41,6 @@ class _HeaderState extends State<Header> {
       });
     } catch (e) {
       print('Error cargando datos del usuario: $e');
-      // Fallback a datos locales si hay error
       final prefs = sl<SharedPreferences>();
       final userData = prefs.getString(AppConfig.userDataKey);
       if (userData != null) {
@@ -90,7 +91,8 @@ class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.institutionalWhite,
+      foregroundColor: AppTheme.institutionalBlue,
       elevation: 1,
       title: _isLoading
           ? const Row(
@@ -128,7 +130,10 @@ class _HeaderState extends State<Header> {
             backgroundColor: Theme.of(context).primaryColor,
             child: Text(
               _getInitials(_userName),
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -154,12 +159,10 @@ class _HeaderState extends State<Header> {
           ),
         ],
       ),
-      actions: [
-        const NotificationBell(),
-        const SizedBox(width: 8),
+      actions: const [
+        NotificationBell(),
+        SizedBox(width: 8),
       ],
-      backgroundColor: AppTheme.institutionalWhite,
-      foregroundColor: AppTheme.institutionalBlue,
     );
   }
 }
